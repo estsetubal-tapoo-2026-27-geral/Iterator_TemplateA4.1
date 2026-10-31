@@ -19,7 +19,7 @@ public class Main {
             System.out.print(value + " ");
         }
         System.out.println();
-        show("Explicit iterator", array::iterator);
+        show("Explicit iterator", array.iterator());
         Iterator<Integer> first = array.iterator();
         Iterator<Integer> second = array.iterator();
         System.out.println("Independent iterators: " + first.next() + ", "
@@ -29,22 +29,22 @@ public class Main {
         Stack<Integer> linked = new StackLinked<>();
         Examples.fillStack(linked);
         System.out.println("\n=== Exercise A: StackLinked ===");
-        show("Top to bottom", linked::iterator);
+        show("Top to bottom", linked.iterator());
 
         Tree<String> tree = Examples.createTree();
         System.out.println("\n=== Exercise B: TreeLinked ===");
         System.out.print(tree);
-        show("Existing elements() in breadth-first order", () -> tree.elements().iterator());
-        show("New iterator in pre-order", tree::iterator);
+        show("Existing elements() in breadth-first order", tree.elements().iterator());
+        show("New iterator in pre-order", tree.iterator());
 
         System.out.println("\n=== Additional exercise C ===");
-        show("StackArray bottom to top", array::iteratorInverse);
-        show("StackLinked bottom to top", linked::iteratorInverse);
+        show("StackArray bottom to top", array.iteratorInverse());
+        show("StackLinked bottom to top", linked.iteratorInverse());
     }
 
-    private static <E> void show(String label, Supplier<Iterator<E>> factory) {
+    private static <E> void show(String label, Iterator<E> iterator) {
         try {
-            Iterator<E> iterator = factory.get();
+
             StringJoiner output = new StringJoiner(", ");
             while (iterator.hasNext()) {
                 output.add(String.valueOf(iterator.next()));
