@@ -96,6 +96,27 @@ Pode escolher uma das abordagens:
 - **Recursiva com lista auxiliar:** construir uma nova `java.util.ArrayList<E>` em pré-ordem e disponibilizar um iterador que rejeite `remove()`, por exemplo através de `java.util.Collections.unmodifiableList`. Considerar o custo de preparação e o espaço adicional, ambos O(n), além da pilha de chamadas.
 - **Iterativa:** criar uma classe interna com uma `java.util.Stack<TreeNode>`. Inserir os filhos pela ordem inversa para que o primeiro filho seja o primeiro a sair. Usar `java.util.Iterator` e `java.util.NoSuchElementException`.
 
+O algoritmo de percorrer em préorder uma àrvore é
+```pascal
+ALGORITHM preOrderIterative(tree)
+    pending ← new Stack()
+
+    IF NOT tree.isEmpty() THEN
+        pending.push(tree.root())
+    END IF
+
+    WHILE NOT pending.isEmpty() DO
+        current ← pending.pop()
+        VISIT current.element()
+
+        childrenList ← list of tree.children(current)
+
+        FOR i ← childrenList.size() - 1 DOWN TO 0 DO
+            pending.push(childrenList[i])
+        END FOR
+    END WHILE
+END ALGORITHM
+```
 Em ambas as abordagens, cada chamada deve criar um percurso independente. Devolver diretamente `elements().iterator()` **não resolve o exercício**, porque essa sequência é em largura nesta implementação. O percurso deve visitar cada posição, mesmo quando existem elementos repetidos.
 
 Não modificar as operações `positions()` e `elements()`, nem a representação da árvore. Ativar os testes de `TreeLinkedIteratorTest`, retirando a anotação `@Disabled`, e executar `mvn test`.
